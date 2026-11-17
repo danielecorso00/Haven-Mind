@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haven Mind — A Safe Space for Your Mind</title>
+  <meta name="description" content="Haven Mind is a youth digital mental health platform co-designed in Aix-en-Provence, blending AI mood check-ins, peer communities, and subsidized licensed therapy." />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            plum: {
+              DEFAULT: '#8E244D',
+              dark: '#721B3D',
+              light: '#B03464',
+            },
+            blush: {
+              soft: '#FDF2F6',
+              medium: '#F8DCE6',
+              border: '#F0C4D4',
+            },
+            navy: {
+              DEFAULT: '#1B2A4A',
+              muted: '#475569',
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-white text-[#1B2A4A] font-sans antialiased selection:bg-[#F8DCE6] selection:text-[#8E244D]">
+
+  <!-- ===================================================================== -->
+  <!-- 1. STICKY TOP NAVIGATION                                              -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#F0C4D4]/70">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Custom SVG Brand Logo -->
+        <a href="#" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-11 h-11 rounded-2xl bg-[#FDF2F6] border border-[#F0C4D4] flex items-center justify-center shadow-xs group-hover:bg-[#F8DCE6] transition-colors">
+            <!-- Minimalist Profile Silhouette enclosing a Growing Tree Branch Motif -->
+            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Head Silhouette -->
+              <path d="M25.5 6C16.94 6 10 12.72 10 21C10 25.68 12.2 29.86 15.65 32.62L14.2 41.5C14.08 42.22 14.64 42.88 15.37 42.88H28.5C29.16 42.88 29.7 42.34 29.7 41.68V37.2H32.4C34.83 37.2 36.8 35.23 36.8 32.8V28.4L39.2 26.5C39.88 25.96 40.02 24.99 39.52 24.28L37.2 21C37.2 12.72 31.96 6 25.5 6Z" fill="#8E244D"/>
+              <!-- Growing Tree Trunk & Branches inside silhouette -->
+              <path d="M22.2 42.88V26.5M22.2 31.5L17.2 26.8M22.2 28.2L28.2 23.2M22.2 23.5L18.5 18.8M22.2 21.8L26.5 16.5M28.2 23.2L31.5 22.2M17.2 26.8L14.5 25.5" stroke="#FDF2F6" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Small Leaves -->
+              <circle cx="17.8" cy="17.8" r="1.5" fill="#F8DCE6"/>
+              <circle cx="27.2" cy="15.6" r="1.6" fill="#F8DCE6"/>
+              <circle cx="32.3" cy="21.9" r="1.4" fill="#F8DCE6"/>
+              <circle cx="13.8" cy="24.9" r="1.3" fill="#F8DCE6"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-extrabold tracking-wider text-[#8E244D] leading-none">HAVEN MIND</span>
+            <span class="text-[10px] font-semibold tracking-[0.16em] text-[#475569] uppercase mt-1">A Safe Space for Your Mind</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-[#1B2A4A]" aria-label="Main navigation">
+          <a href="#mission" class="hover:text-[#8E244D] transition-colors py-2">Mission</a>
+          <a href="#how-it-works" class="hover:text-[#8E244D] transition-colors py-2">How It Works</a>
+          <a href="#reset-nook" class="hover:text-[#8E244D] transition-colors py-2">5-Min Reset</a>
+          <a href="#plans" class="hover:text-[#8E244D] transition-colors py-2">Plans</a>
+          <a href="#partners" class="hover:text-[#8E244D] transition-colors py-2">Partners</a>
+        </nav>
+
+        <!-- Primary CTA + Mobile Menu Trigger -->
+        <div class="flex items-center gap-3">
+          <a href="#reset-nook" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#8E244D] hover:bg-[#721B3D] text-white text-sm font-semibold shadow-sm hover:shadow transition-all">
+            Try 5-Min Reset
+          </a>
+
+          <!-- Mobile Hamburger Button -->
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+            class="md:hidden p-3 rounded-xl text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D] focus:outline-none focus:ring-2 focus:ring-[#8E244D]"
+          >
+            <svg id="icon-menu-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="icon-menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#F0C4D4] px-4 pt-3 pb-6 space-y-1 shadow-lg">
+      <a href="#mission" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D]">Mission</a>
+      <a href="#how-it-works" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D]">How It Works</a>
+      <a href="#reset-nook" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D]">5-Min Reset</a>
+      <a href="#plans" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D]">Plans</a>
+      <a href="#partners" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-[#1B2A4A] hover:bg-[#FDF2F6] hover:text-[#8E244D]">Partners</a>
+      <div class="pt-2">
+        <a href="#reset-nook" class="mobile-nav-link flex items-center justify-center w-full px-5 py-3.5 rounded-full bg-[#8E244D] text-white text-base font-semibold shadow-sm">
+          Try 5-Min Reset
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION                                                       -->
+    <!-- ===================================================================== -->
+    <section id="mission" class="relative overflow-hidden bg-gradient-to-b from-[#FDF2F6] via-[#F8DCE6]/45 to-white pt-14 pb-20 sm:pt-20 sm:pb-24">
+      <!-- Subtle Decorative Ambient Shapes -->
+      <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#F8DCE6]/60 blur-3xl"></div>
+      <div class="pointer-events-none absolute top-48 -left-24 w-80 h-80 rounded-full bg-[#FDF2F6] blur-3xl"></div>
+
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-[#F0C4D4] shadow-xs mb-7">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#8E244D] animate-pulse"></span>
+          <span class="text-xs sm:text-sm font-semibold text-[#8E244D] tracking-wide">
+            Co-Designed with Youth in Aix-en-Provence • Ages 16–25
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="max-w-4xl mx-auto text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-[#1B2A4A] tracking-tight leading-[1.15]">
+          A Safe Space for Your Mind in a <span class="text-[#8E244D]">Hyper-Connected</span> World.
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="max-w-2xl mx-auto mt-6 text-base sm:text-lg text-[#475569] leading-relaxed">
+          Combating social media anxiety, digital burnout, and isolation by blending AI-powered daily check-ins, peer communities, and affordable licensed therapy.
+        </p>
+
+        <!-- Dual Action Buttons -->
+        <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#how-it-works" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#8E244D] hover:bg-[#721B3D] text-white font-semibold text-base shadow-md hover:shadow-lg transition-all">
+            Explore Platform
+          </a>
+          <a href="#reset-nook" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white hover:bg-[#FDF2F6] text-[#8E244D] border border-[#E5B3C6] font-semibold text-base shadow-xs transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Try Interactive Mood Check-In
+          </a>
+        </div>
+
+        <!-- Key Project Impact Highlights Strip (3 Metric Cards) -->
+        <div class="mt-14 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div class="bg-white/95 backdrop-blur-xs rounded-2xl p-6 border border-[#F0C4D4] shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-[#8E244D]">16–25</div>
+            <div class="mt-1 text-sm font-bold text-[#1B2A4A]">Target Youth Age Group</div>
+            <p class="mt-1 text-xs text-[#475569]">Built with students &amp; youth ambassadors</p>
+          </div>
+
+          <div class="bg-white/95 backdrop-blur-xs rounded-2xl p-6 border border-[#F0C4D4] shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-[#8E244D]">3 Tiers</div>
+            <div class="mt-1 text-sm font-bold text-[#1B2A4A]">Accessible Support</div>
+            <p class="mt-1 text-xs text-[#475569]">Free self-help to subsidized clinical care</p>
+          </div>
+
+          <div class="bg-white/95 backdrop-blur-xs rounded-2xl p-6 border border-[#F0C4D4] shadow-sm text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-[#8E244D]">7+ Partners</div>
+            <div class="mt-1 text-sm font-bold text-[#1B2A4A]">Academic &amp; Healthcare Network</div>
+            <p class="mt-1 text-xs text-[#475569]">Bridging campus life &amp; public health</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. MISSION & CORE PILLARS ('HOW IT WORKS')                            -->
+    <!-- ===================================================================== -->
+    <section id="how-it-works" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#8E244D]">Core Platform Pillars</span>
+          <h2 class="mt-2 text-2xl sm:text-4xl font-extrabold text-[#1B2A4A]">How Haven Mind Works</h2>
+          <p class="mt-3 text-[#475569] text-base leading-relaxed">
+            Merging clinical rigor with youth culture—moving support from an intimidating clinic into everyday digital habits.
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-7">
+          <!-- Pillar Card 1 -->
+          <div class="rounded-3xl bg-white p-8 border border-[#F0C4D4] shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="w-12 h-12 rounded-2xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-[#1B2A4A]">AI Mood Check-Ins &amp; Voice Diaries</h3>
+            <p class="mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
+              Non-judgmental daily emotional tracking, personalized mental fitness exercises, and proactive <span class="font-semibold text-[#8E244D]">“Scroll Smarter”</span> digital detox nudges before burnout hits.
+            </p>
+          </div>
+
+          <!-- Pillar Card 2 -->
+          <div class="rounded-3xl bg-white p-8 border border-[#F0C4D4] shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="w-12 h-12 rounded-2xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-[#1B2A4A]">Moderated Peer Communities</h3>
+            <p class="mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
+              Safe anonymous peer-mentored forums, <span class="font-semibold text-[#8E244D]">“Accountability Pods”</span>, and campus “Real Talk” workshops built with students, not just for them.
+            </p>
+          </div>
+
+          <!-- Pillar Card 3 -->
+          <div class="rounded-3xl bg-white p-8 border border-[#F0C4D4] shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="w-12 h-12 rounded-2xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-[#1B2A4A]">On-Demand Licensed Therapy</h3>
+            <p class="mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
+              Evidence-based online counseling with licensed therapists, subsidized through regional health partnerships so cost is never a barrier to care.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. INTERACTIVE '5-MINUTE MIND RESET' CAMPUS WELLNESS NOOK DEMO        -->
+    <!-- ===================================================================== -->
+    <section id="reset-nook" class="py-20 bg-[#FDF2F6] border-y border-[#F0C4D4]/70">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#8E244D] border border-[#F0C4D4] text-xs font-bold uppercase tracking-wider">
+            Campus QR Wellness Nook Demo
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-[#1B2A4A]">5-Minute Mind Reset</h2>
+          <p class="mt-3 text-[#475569] text-base leading-relaxed">
+            Inspired by our QR-code “Wellness Nooks” at Aix-Marseille University. Take 60 seconds to check in with how you feel and try a guided breathing reset.
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          <!-- Step 1: Quick Mood Check-In Selector (7 columns on lg) -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-[#F0C4D4] shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#8E244D]">Step 1 • Quick Mood Check-In</span>
+                <span class="text-xs text-[#475569] bg-[#FDF2F6] px-2.5 py-1 rounded-full font-medium">100% Private</span>
+              </div>
+              <h3 class="mt-2 text-xl sm:text-2xl font-bold text-[#1B2A4A]">How is your mind feeling right now?</h3>
+              <p class="mt-1 text-sm text-[#475569]">Select the state that best matches your current headspace:</p>
+
+              <!-- 4 Mood Buttons -->
+              <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3" role="group" aria-label="Mood selector">
+                <button
+                  type="button"
+                  data-mood="screens"
+                  class="mood-btn active-mood flex items-center gap-3 p-4 rounded-2xl border-2 border-[#8E244D] bg-[#FDF2F6] text-left transition-all cursor-pointer"
+                >
+                  <span class="w-9 h-9 rounded-xl bg-[#8E244D] text-white flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </span>
+                  <span class="font-semibold text-sm sm:text-base text-[#1B2A4A]">Overwhelmed by Screens</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-mood="anxious"
+                  class="mood-btn flex items-center gap-3 p-4 rounded-2xl border border-[#F0C4D4] bg-white hover:bg-[#FDF2F6]/60 text-left transition-all cursor-pointer"
+                >
+                  <span class="w-9 h-9 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </span>
+                  <span class="font-semibold text-sm sm:text-base text-[#1B2A4A]">Anxious / Stressed</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-mood="low"
+                  class="mood-btn flex items-center gap-3 p-4 rounded-2xl border border-[#F0C4D4] bg-white hover:bg-[#FDF2F6]/60 text-left transition-all cursor-pointer"
+                >
+                  <span class="w-9 h-9 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                  </span>
+                  <span class="font-semibold text-sm sm:text-base text-[#1B2A4A]">Low Energy</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-mood="okay"
+                  class="mood-btn flex items-center gap-3 p-4 rounded-2xl border border-[#F0C4D4] bg-white hover:bg-[#FDF2F6]/60 text-left transition-all cursor-pointer"
+                >
+                  <span class="w-9 h-9 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span>
+                  <span class="font-semibold text-sm sm:text-base text-[#1B2A4A]">Doing Okay</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tailored Coping Tip Output Box -->
+            <div id="mood-tip-box" class="mt-6 rounded-2xl bg-[#FDF2F6] border border-[#F0C4D4] p-5 transition-all">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8E244D]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <span id="mood-tip-title">Scroll Smarter Nudge • Digital Detox</span>
+              </div>
+              <p id="mood-tip-text" class="mt-2 text-sm sm:text-base text-[#1B2A4A] leading-relaxed">
+                Constant feeds keep your nervous system on high alert—try placing your phone face-down for five minutes and looking at something at least 6 meters away. Pair that visual break with three cycles of the 4-4-4 breathing timer on the right to reset your focus.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2: Interactive 4-4-4 Calm Breathing Circle Timer (5 columns on lg) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-[#F0C4D4] shadow-sm flex flex-col items-center justify-between text-center">
+            <div class="w-full">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#8E244D]">Step 2 • 4-4-4 Guided Reset</span>
+              <h3 class="mt-1.5 text-xl font-bold text-[#1B2A4A]">Calm Breathing Circle</h3>
+              <p class="mt-1 text-xs sm:text-sm text-[#475569]">Inhale 4s • Hold 4s • Exhale 4s</p>
+            </div>
+
+            <!-- Breathing Circle Visual Stage -->
+            <div class="my-6 relative flex items-center justify-center w-52 h-52">
+              <!-- Outer Ambient Aura Ring -->
+              <div
+                id="breath-aura"
+                class="absolute w-36 h-36 rounded-full bg-[#F8DCE6]/70 transition-transform duration-1000 ease-in-out scale-100"
+              ></div>
+              <!-- Inner Interactive Circle -->
+              <div
+                id="breath-circle"
+                class="relative w-32 h-32 rounded-full bg-gradient-to-br from-[#8E244D] to-[#B03464] text-white shadow-md flex flex-col items-center justify-center transition-transform duration-1000 ease-in-out scale-100 px-3"
+              >
+                <span id="breath-phase" class="text-base font-bold tracking-wide">Ready</span>
+                <span id="breath-timer" class="text-2xl font-extrabold mt-0.5">4s</span>
+              </div>
+            </div>
+
+            <div class="w-full">
+              <p id="breath-instruction" class="text-xs sm:text-sm font-medium text-[#475569] min-h-[1.25rem]">
+                Tap Start to begin a calming 4-4-4 breathing rhythm.
+              </p>
+
+              <!-- Controls -->
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <button
+                  id="breath-start-btn"
+                  type="button"
+                  class="px-6 py-3 rounded-full bg-[#8E244D] hover:bg-[#721B3D] text-white text-sm font-semibold shadow-xs transition-all cursor-pointer"
+                >
+                  Start Breathing
+                </button>
+                <button
+                  id="breath-reset-btn"
+                  type="button"
+                  class="px-5 py-3 rounded-full bg-[#FDF2F6] hover:bg-[#F8DCE6] text-[#8E244D] border border-[#F0C4D4] text-sm font-semibold transition-all cursor-pointer"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. ACCESSIBLE TIERED PLANS ('PLANS')                                  -->
+    <!-- ===================================================================== -->
+    <section id="plans" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#8E244D]">Social Enterprise Model</span>
+          <h2 class="mt-2 text-2xl sm:text-4xl font-extrabold text-[#1B2A4A]">Accessible Support for Every Student</h2>
+          <p class="mt-3 text-[#475569] text-base leading-relaxed">
+            Our inclusive freemium and regional subsidy structure ensures financial barriers never stand between a young person and mental health care.
+          </p>
+        </div>
+
+        <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          <!-- Plan 1: Community Free -->
+          <div class="rounded-3xl bg-white p-8 border border-[#F0C4D4] shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="text-sm font-bold text-[#8E244D] uppercase tracking-wider">Community Free</div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="text-4xl font-extrabold text-[#1B2A4A]">€0</span>
+                <span class="text-sm font-medium text-[#475569]">/ month</span>
+              </div>
+              <p class="mt-3 text-sm text-[#475569]">
+                Essential daily self-care tools and safe peer connection—always free for everyone.
+              </p>
+
+              <ul class="mt-6 space-y-3.5 text-sm text-[#1B2A4A]">
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Daily AI mood check-ins</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Private voice-note diary</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Guided stress-management exercises</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Moderated peer support forums</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              type="button"
+              data-plan="Community Free (€0/month)"
+              data-plan-desc="Immediate access to AI daily mood check-ins, voice diaries, and moderated student peer forums with zero cost."
+              class="plan-cta-btn mt-8 w-full py-3.5 px-5 rounded-full bg-[#FDF2F6] hover:bg-[#F8DCE6] text-[#8E244D] border border-[#F0C4D4] font-semibold text-sm transition-all cursor-pointer"
+            >
+              Join Community Free
+            </button>
+          </div>
+
+          <!-- Plan 2: Haven Premium (Highlighted) -->
+          <div class="relative rounded-3xl bg-white p-8 border-2 border-[#8E244D] shadow-lg flex flex-col justify-between">
+            <!-- Top Pill Badge -->
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full bg-[#8E244D] text-white text-xs font-bold tracking-wide shadow-xs">
+              Funds Free Youth Therapy
+            </div>
+
+            <div>
+              <div class="text-sm font-bold text-[#8E244D] uppercase tracking-wider">Haven Premium</div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="text-4xl font-extrabold text-[#1B2A4A]">€5.99</span>
+                <span class="text-sm font-medium text-[#475569]">/ month</span>
+              </div>
+              <p class="mt-3 text-sm text-[#475569]">
+                Personalized mental fitness routines plus direct social impact for fellow students.
+              </p>
+
+              <ul class="mt-6 space-y-3.5 text-sm text-[#1B2A4A]">
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Everything in Community Free</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Personalized mental fitness plans</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Unlockable digital detox &amp; wellness workshops</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Advanced AI habit &amp; mood pattern insights</span>
+                </li>
+              </ul>
+
+              <div class="mt-6 rounded-2xl bg-[#FDF2F6] border border-[#F0C4D4] p-3.5 text-xs font-semibold text-[#8E244D] leading-relaxed">
+                100% of net profits subsidize therapy for low-income students.
+              </div>
+            </div>
+
+            <button
+              type="button"
+              data-plan="Haven Premium (€5.99/month)"
+              data-plan-desc="Unlocks personalized mental fitness plans and workshops while 100% of net profits fund free therapy sessions for low-income students."
+              class="plan-cta-btn mt-7 w-full py-3.5 px-5 rounded-full bg-[#8E244D] hover:bg-[#721B3D] text-white font-semibold text-sm shadow-sm transition-all cursor-pointer"
+            >
+              Get Haven Premium
+            </button>
+          </div>
+
+          <!-- Plan 3: Therapy Plus -->
+          <div class="rounded-3xl bg-white p-8 border border-[#F0C4D4] shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <span class="text-sm font-bold text-[#8E244D] uppercase tracking-wider">Therapy Plus</span>
+                <span class="px-2.5 py-1 rounded-full bg-[#FDF2F6] text-[#8E244D] border border-[#F0C4D4] text-[11px] font-bold">
+                  €0 Subsidized for Eligible Students
+                </span>
+              </div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="text-lg font-semibold text-[#475569]">Up to</span>
+                <span class="text-4xl font-extrabold text-[#1B2A4A]">€79.99</span>
+                <span class="text-sm font-medium text-[#475569]">/ month</span>
+              </div>
+              <p class="mt-3 text-sm text-[#475569]">
+                Professional clinical support backed by regional health subsidies and sliding-scale pricing.
+              </p>
+
+              <ul class="mt-6 space-y-3.5 text-sm text-[#1B2A4A]">
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Everything in Haven Premium</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>1-on-1 online video/chat counseling with licensed therapists</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Priority clinical support &amp; seamless care referral</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-[#8E244D] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span>Full ARS &amp; Premium-fund fee waiver for low-income youth</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              type="button"
+              data-plan="Therapy Plus (€0 Subsidized / up to €79.99)"
+              data-plan-desc="Connects students directly with licensed therapists via online video/chat. Eligible students receive 100% subsidized access through ARS and Haven Premium funding."
+              class="plan-cta-btn mt-8 w-full py-3.5 px-5 rounded-full bg-[#FDF2F6] hover:bg-[#F8DCE6] text-[#8E244D] border border-[#F0C4D4] font-semibold text-sm transition-all cursor-pointer"
+            >
+              Check Subsidy Eligibility
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. INSTITUTIONAL ECOSYSTEM & PARTNERS ('PARTNERS')                    -->
+    <!-- ===================================================================== -->
+    <section id="partners" class="py-20 bg-[#FDF2F6]/70 border-t border-[#F0C4D4]/70">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#8E244D]">Collaborative Safety Net</span>
+          <h2 class="mt-2 text-2xl sm:text-4xl font-extrabold text-[#1B2A4A]">Institutional Ecosystem &amp; Partners</h2>
+          <p class="mt-3 text-[#475569] text-base leading-relaxed">
+            Connecting digital youth support with universities, public health authorities, and clinical hospitals in the Aix-Marseille region.
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Partner 1 -->
+          <div class="bg-white rounded-2xl p-6 border border-[#F0C4D4] shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-[#1B2A4A]">Aix-Marseille Université</h3>
+            <p class="mt-1 text-xs font-semibold text-[#8E244D]">Academic &amp; Campus Wellness Nooks</p>
+            <p class="mt-2 text-sm text-[#475569] leading-relaxed">
+              Integrating QR-code “Wellness Nooks”, student orientation touchpoints, and peer ambassador networks across campus.
+            </p>
+          </div>
+
+          <!-- Partner 2 -->
+          <div class="bg-white rounded-2xl p-6 border border-[#F0C4D4] shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-[#1B2A4A]">Agence Régionale de Santé (ARS)</h3>
+            <p class="mt-1 text-xs font-semibold text-[#8E244D]">Public Health &amp; Therapy Subsidies</p>
+            <p class="mt-2 text-sm text-[#475569] leading-relaxed">
+              Co-funding no-cost therapy access for low-income youth and aligning preventive care with regional public health priorities.
+            </p>
+          </div>
+
+          <!-- Partner 3 -->
+          <div class="bg-white rounded-2xl p-6 border border-[#F0C4D4] shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-[#1B2A4A]">Centre Hospitalier Montperrin</h3>
+            <p class="mt-1 text-xs font-semibold text-[#8E244D]">Clinical Safety Net</p>
+            <p class="mt-2 text-sm text-[#475569] leading-relaxed">
+              Providing immediate clinical escalation and specialized psychiatric support whenever acute crisis signals are detected.
+            </p>
+          </div>
+
+          <!-- Partner 4 -->
+          <div class="bg-white rounded-2xl p-6 border border-[#F0C4D4] shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-[#1B2A4A]">Espoir Provence</h3>
+            <p class="mt-1 text-xs font-semibold text-[#8E244D]">Youth Community Outreach</p>
+            <p class="mt-2 text-sm text-[#475569] leading-relaxed">
+              Extending digital mental wellness tools beyond university campuses to reach underserved youth through local street teams.
+            </p>
+          </div>
+
+          <!-- Partner 5 -->
+          <div class="bg-white rounded-2xl p-6 border border-[#F0C4D4] shadow-xs sm:col-span-2 lg:col-span-2">
+            <div class="w-10 h-10 rounded-xl bg-[#FDF2F6] text-[#8E244D] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-[#1B2A4A]">French Federation of Psychiatry / Santé Mentale France</h3>
+            <p class="mt-1 text-xs font-semibold text-[#8E244D]">Clinical Guidance, Research &amp; Anti-Stigma Advocacy</p>
+            <p class="mt-2 text-sm text-[#475569] leading-relaxed">
+              Supporting evidence-based self-help content design, ethical standards for youth AI tools, and regional mental health awareness initiatives.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 7. CLEAN ACADEMIC PROJECT FOOTER                                      -->
+  <!-- ===================================================================== -->
+  <footer class="bg-[#1B2A4A] text-white py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-white/15">
+        <!-- Footer Brand Logo -->
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center">
+            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M25.5 6C16.94 6 10 12.72 10 21C10 25.68 12.2 29.86 15.65 32.62L14.2 41.5C14.08 42.22 14.64 42.88 15.37 42.88H28.5C29.16 42.88 29.7 42.34 29.7 41.68V37.2H32.4C34.83 37.2 36.8 35.23 36.8 32.8V28.4L39.2 26.5C39.88 25.96 40.02 24.99 39.52 24.28L37.2 21C37.2 12.72 31.96 6 25.5 6Z" fill="#F8DCE6"/>
+              <path d="M22.2 42.88V26.5M22.2 31.5L17.2 26.8M22.2 28.2L28.2 23.2M22.2 23.5L18.5 18.8M22.2 21.8L26.5 16.5M28.2 23.2L31.5 22.2M17.2 26.8L14.5 25.5" stroke="#8E244D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-lg font-extrabold tracking-wider text-white">HAVEN MIND</div>
+            <div class="text-xs font-medium tracking-widest text-[#F8DCE6] uppercase">A Safe Space for Your Mind</div>
+          </div>
+        </div>
+
+        <!-- Quick Footer Links -->
+        <div class="flex flex-wrap gap-6 text-sm text-slate-300">
+          <a href="#mission" class="hover:text-white transition-colors">Mission</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#reset-nook" class="hover:text-white transition-colors">5-Min Reset</a>
+          <a href="#plans" class="hover:text-white transition-colors">Plans</a>
+          <a href="#partners" class="hover:text-white transition-colors">Partners</a>
+        </div>
+      </div>
+
+      <!-- Academic Attribution & Team Credits -->
+      <div class="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <div>
+          <p class="font-medium text-white">
+            Project Prototype developed at Aix-Marseille Université (Erasmus+ Exchange Program, Aix-en-Provence, France — SAS Social Enterprise Concept).
+          </p>
+          <p class="mt-1 text-slate-300">
+            Created by <span class="text-[#F8DCE6] font-semibold">Daniele Corso</span>, Mohammadreza Habibi, Juan Martin Quiroga Lafargue &amp; Tom Scaramanga.
+          </p>
+        </div>
+        <div class="text-xs text-slate-400 shrink-0">
+          www.havenmind.com • Prototype Showcase
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- NON-INTRUSIVE PROTOTYPE PLAN PREVIEW MODAL (Replaces alert())         -->
+  <!-- ===================================================================== -->
+  <div
+    id="plan-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-[#1B2A4A]/60 backdrop-blur-xs p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-plan-title"
+  >
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 border border-[#F0C4D4] shadow-xl relative">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF2F6] text-[#8E244D] text-xs font-bold uppercase tracking-wider">
+        Haven Mind Prototype Preview
+      </div>
+      <h3 id="modal-plan-title" class="mt-3 text-xl font-extrabold text-[#1B2A4A]">Plan Selected</h3>
+      <p id="modal-plan-desc" class="mt-2.5 text-sm text-[#475569] leading-relaxed"></p>
+      <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
+        <a
+          href="#reset-nook"
+          id="modal-try-reset-btn"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#FDF2F6] hover:bg-[#F8DCE6] text-[#8E244D] text-sm font-semibold transition-colors"
+        >
+          Try 5-Min Reset
+        </a>
+        <button
+          type="button"
+          id="modal-close-btn"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#8E244D] hover:bg-[#721B3D] text-white text-sm font-semibold transition-colors cursor-pointer"
+        >
+          Close Preview
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: MOBILE NAV, MOOD CHECK-IN & 4-4-4 BREATHING TIMER         -->
+  <!-- ===================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // -------------------------------------------------------------------
+      // 1. Mobile Navigation Toggle
+      // -------------------------------------------------------------------
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('icon-menu-open');
+      const iconClose = document.getElementById('icon-menu-close');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMobileMenu(forceClose = false) {
+        const isCurrentlyOpen = !mobileMenu.classList.contains('hidden');
+        const shouldOpen = forceClose ? false : !isCurrentlyOpen;
+
+        mobileMenu.classList.toggle('hidden', !shouldOpen);
+        iconOpen.classList.toggle('hidden', shouldOpen);
+        iconClose.classList.toggle('hidden', !shouldOpen);
+        mobileMenuBtn.setAttribute('aria-expanded', String(shouldOpen));
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+      }
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => toggleMobileMenu(true));
+      });
+
+      // -------------------------------------------------------------------
+      // 2. Step 1: Interactive Quick Mood Check-In Selector
+      // -------------------------------------------------------------------
+      const moodData = {
+        screens: {
+          title: 'Scroll Smarter Nudge • Digital Detox',
+          text: 'Constant feeds keep your nervous system on high alert—try placing your phone face-down for five minutes and looking at something at least 6 meters away. Pair that visual break with three cycles of the 4-4-4 breathing timer on the right to reset your focus.'
+        },
+        anxious: {
+          title: 'Grounding Support • Calm Your Nervous System',
+          text: 'When academic or social pressure builds up, slowing your exhale signals safety to your brain within seconds. Follow the 4-4-4 breathing circle beside this card, and remember you can connect with a peer mentor or licensed therapist whenever you need support.'
+        },
+        low: {
+          title: 'Gentle Recharge • Micro-Habit Boost',
+          text: 'Low energy is a signal to pause rather than push harder—start with a glass of water, stretch your shoulders, and step near natural light for two minutes. Even a tiny voice-note reflection or a short breathing reset can help restore steady momentum.'
+        },
+        okay: {
+          title: 'Positive Momentum • Maintain Your Balance',
+          text: 'Checking in while you feel steady builds resilience for busier days ahead. Lock in this calm state with one 4-4-4 breathing cycle or log a quick gratitude note in your daily Haven Mind check-in.'
+        }
+      };
+
+      const moodButtons = document.querySelectorAll('.mood-btn');
+      const moodTipTitle = document.getElementById('mood-tip-title');
+      const moodTipText = document.getElementById('mood-tip-text');
+
+      moodButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const selectedMood = btn.getAttribute('data-mood');
+          const content = moodData[selectedMood];
+          if (!content) return;
+
+          // Update active visual styling across all 4 mood buttons
+          moodButtons.forEach((b) => {
+            b.classList.remove('border-2', 'border-[#8E244D]', 'bg-[#FDF2F6]');
+            b.classList.add('border', 'border-[#F0C4D4]', 'bg-white');
+            const iconWrap = b.querySelector('span:first-child');
+            if (iconWrap) {
+              iconWrap.classList.remove('bg-[#8E244D]', 'text-white');
+              iconWrap.classList.add('bg-[#FDF2F6]', 'text-[#8E244D]');
+            }
+          });
+
+          btn.classList.remove('border', 'border-[#F0C4D4]', 'bg-white');
+          btn.classList.add('border-2', 'border-[#8E244D]', 'bg-[#FDF2F6]');
+          const activeIconWrap = btn.querySelector('span:first-child');
+          if (activeIconWrap) {
+            activeIconWrap.classList.remove('bg-[#FDF2F6]', 'text-[#8E244D]');
+            activeIconWrap.classList.add('bg-[#8E244D]', 'text-white');
+          }
+
+          // Update tailored 2-sentence coping tip
+          moodTipTitle.textContent = content.title;
+          moodTipText.textContent = content.text;
+        });
+      });
+
+      // -------------------------------------------------------------------
+      // 3. Step 2: Interactive 4-4-4 Calm Breathing Circle Timer
+      // -------------------------------------------------------------------
+      const phases = [
+        {
+          name: 'Inhale',
+          instruction: 'Breathe in slowly through your nose...',
+          circleScale: 'scale-125',
+          auraScale: 'scale-150'
+        },
+        {
+          name: 'Hold',
+          instruction: 'Hold your breath gently...',
+          circleScale: 'scale-125',
+          auraScale: 'scale-150'
+        },
+        {
+          name: 'Exhale',
+          instruction: 'Exhale slowly and release tension...',
+          circleScale: 'scale-95',
+          auraScale: 'scale-100'
+        }
+      ];
+
+      const breathCircle = document.getElementById('breath-circle');
+      const breathAura = document.getElementById('breath-aura');
+      const breathPhaseEl = document.getElementById('breath-phase');
+      const breathTimerEl = document.getElementById('breath-timer');
+      const breathInstructionEl = document.getElementById('breath-instruction');
+      const startBtn = document.getElementById('breath-start-btn');
+      const resetBtn = document.getElementById('breath-reset-btn');
+
+      let isRunning = false;
+      let intervalId = null;
+      let phaseIndex = 0;
+      let secondsLeft = 4;
+      let completedCycles = 0;
+
+      function applyPhaseVisuals(phase) {
+        breathCircle.classList.remove('scale-95', 'scale-100', 'scale-125');
+        breathAura.classList.remove('scale-100', 'scale-150');
+        breathCircle.classList.add(phase.circleScale);
+        breathAura.classList.add(phase.auraScale);
+        breathPhaseEl.textContent = phase.name;
+        breathTimerEl.textContent = `${secondsLeft}s`;
+        const cycleLabel = completedCycles > 0 ? ` (Cycle ${completedCycles + 1})` : '';
+        breathInstructionEl.textContent = `${phase.instruction}${cycleLabel}`;
+      }
+
+      function startBreathing() {
+        if (isRunning) {
+          // Pause state
+          clearInterval(intervalId);
+          isRunning = false;
+          startBtn.textContent = 'Resume';
+          breathInstructionEl.textContent = 'Paused. Tap Resume whenever you are ready.';
+          return;
+        }
+
+        isRunning = true;
+        startBtn.textContent = 'Pause';
+        applyPhaseVisuals(phases[phaseIndex]);
+
+        intervalId = setInterval(() => {
+          secondsLeft -= 1;
+
+          if (secondsLeft <= 0) {
+            phaseIndex = (phaseIndex + 1) % phases.length;
+            if (phaseIndex === 0) {
+              completedCycles += 1;
+            }
+            secondsLeft = 4;
+            applyPhaseVisuals(phases[phaseIndex]);
+          } else {
+            breathTimerEl.textContent = `${secondsLeft}s`;
+          }
+        }, 1000);
+      }
+
+      function resetBreathing() {
+        clearInterval(intervalId);
+        isRunning = false;
+        phaseIndex = 0;
+        secondsLeft = 4;
+        completedCycles = 0;
+
+        breathCircle.classList.remove('scale-95', 'scale-125');
+        breathAura.classList.remove('scale-150');
+        breathCircle.classList.add('scale-100');
+        breathAura.classList.add('scale-100');
+
+        breathPhaseEl.textContent = 'Ready';
+        breathTimerEl.textContent = '4s';
+        breathInstructionEl.textContent = 'Tap Start to begin a calming 4-4-4 breathing rhythm.';
+        startBtn.textContent = 'Start Breathing';
+      }
+
+      if (startBtn && resetBtn) {
+        startBtn.addEventListener('click', startBreathing);
+        resetBtn.addEventListener('click', resetBreathing);
+      }
+
+      // -------------------------------------------------------------------
+      // 4. Plan CTA Prototype Preview Modal
+      // -------------------------------------------------------------------
+      const planModal = document.getElementById('plan-modal');
+      const modalTitle = document.getElementById('modal-plan-title');
+      const modalDesc = document.getElementById('modal-plan-desc');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+      const modalTryResetBtn = document.getElementById('modal-try-reset-btn');
+      const planCtaBtns = document.querySelectorAll('.plan-cta-btn');
+
+      function closeModal() {
+        planModal.classList.add('hidden');
+        planModal.classList.remove('flex');
+      }
+
+      planCtaBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          modalTitle.textContent = btn.getAttribute('data-plan') || 'Haven Mind Plan';
+          modalDesc.textContent = btn.getAttribute('data-plan-desc') || '';
+          planModal.classList.remove('hidden');
+          planModal.classList.add('flex');
+        });
+      });
+
+      if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+      if (modalTryResetBtn) modalTryResetBtn.addEventListener('click', closeModal);
+      if (planModal) {
+        planModal.addEventListener('click', (e) => {
+          if (e.target === planModal) closeModal();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
